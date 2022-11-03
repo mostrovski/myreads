@@ -6,6 +6,21 @@ import Shelf from './Shelf';
 function App() {
     const [books, setBooks] = useState([]);
 
+    function onShelfChange(bookId, shelf) {
+        const bookToUpdate = books.find(book => book.id === bookId);
+
+        if (bookToUpdate) {
+            API.update({ id: bookToUpdate.id }, shelf).then(() => {
+                bookToUpdate.shelf = shelf;
+                setBooks(
+                    books
+                        .filter(book => book.id !== bookToUpdate.id)
+                        .concat(bookToUpdate)
+                );
+            });
+        }
+    }
+
     useEffect(() => {
         API.getAll().then(books => setBooks(books));
     }, []);
@@ -18,9 +33,21 @@ function App() {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <Shelf type="currentlyReading" books={books} />
-                        <Shelf type="wantToRead" books={books} />
-                        <Shelf type="read" books={books} />
+                        <Shelf
+                            type="currentlyReading"
+                            books={books}
+                            onShelfChange={onShelfChange}
+                        />
+                        <Shelf
+                            type="wantToRead"
+                            books={books}
+                            onShelfChange={onShelfChange}
+                        />
+                        <Shelf
+                            type="read"
+                            books={books}
+                            onShelfChange={onShelfChange}
+                        />
                     </div>
                 </div>
             </div>

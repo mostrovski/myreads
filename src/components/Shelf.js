@@ -1,7 +1,7 @@
 import BookList from './BookList';
 import PropTypes from 'prop-types';
 
-function Shelf({ type, books }) {
+function Shelf({ type, books, onShelfChange }) {
     function titleMap() {
         const map = new Map();
 
@@ -16,7 +16,10 @@ function Shelf({ type, books }) {
         <div className="bookshelf">
             <h2 className="bookshelf-title">{titleMap().get(type)}</h2>
             <div className="bookshelf-books">
-                <BookList books={books.filter(book => book.shelf === type)} />
+                <BookList
+                    books={books.filter(book => book.shelf === type)}
+                    onShelfChange={onShelfChange}
+                />
             </div>
         </div>
     );
@@ -25,6 +28,7 @@ function Shelf({ type, books }) {
 Shelf.propTypes = {
     type: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
+    onShelfChange: PropTypes.func.isRequired,
 };
 
 export default Shelf;

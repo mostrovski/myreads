@@ -1,5 +1,5 @@
 import Book from './Book';
-import BookPlaceholder from './BookPlaceholder';
+import EmptyContentPlaceholder from './EmptyContentPlaceholder';
 import PropTypes from 'prop-types';
 
 function BookList({ books, onShelfChange }) {
@@ -12,7 +12,7 @@ function BookList({ books, onShelfChange }) {
             ))}
         </ol>
     ) : (
-        <BookPlaceholder />
+        <EmptyContentPlaceholder />
     );
 }
 

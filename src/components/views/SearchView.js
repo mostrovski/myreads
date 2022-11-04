@@ -20,7 +20,7 @@ function SearchView({ selectedBooks, onShelfChange }) {
                     results.map(result => {
                         result.shelf =
                             selectedBooks.find(book => book.id === result.id)
-                                ?.shelf ?? '';
+                                ?.shelf ?? 'none';
                         return result;
                     })
                 );

@@ -7,7 +7,7 @@ function IndexView({ books, onShelfChange }) {
         <div>
             <div className="list-books">
                 <div className="list-books-title">
-                    <h1>MyReads</h1>
+                    <h1>My Reads</h1>
                 </div>
                 <div className="list-books-content">
                     <div>
@@ -38,9 +38,16 @@ function IndexView({ books, onShelfChange }) {
             >
                 <Link
                     to="/search"
-                    style={{ textDecoration: 'none', color: '#2e7c31' }}
+                    style={{
+                        border: 'solid',
+                        borderColor: '#1074e7',
+                        borderRadius: '0.5rem',
+                        color: '#1074e7',
+                        padding: '0.5rem 1rem',
+                        textDecoration: 'none',
+                    }}
                 >
-                    Search Books &#10230;
+                    Search Books
                 </Link>
             </div>
         </div>

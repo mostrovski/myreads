@@ -1,10 +1,12 @@
-function BookPlaceholder() {
+function EmptyContentPlaceholder() {
     return (
         <div
             style={{
                 display: 'flex',
                 justifyContent: 'center',
+                marginTop: '2rem',
                 opacity: '75%',
+                rotate: '15deg',
             }}
         >
             <img
@@ -16,4 +18,4 @@ function BookPlaceholder() {
     );
 }
 
-export default BookPlaceholder;
+export default EmptyContentPlaceholder;

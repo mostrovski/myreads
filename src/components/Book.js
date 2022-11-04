@@ -17,7 +17,7 @@ function Book({ bookData, onShelfChange }) {
                     style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${bookData.imageLinks.thumbnail})`,
+                        backgroundImage: `url(${bookData.imageLinks?.thumbnail})`,
                         opacity: moving ? '30%' : '100%',
                     }}
                 ></div>

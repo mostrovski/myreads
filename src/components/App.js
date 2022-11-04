@@ -1,7 +1,9 @@
 import '../assets/App.css';
 import { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import * as API from '../services/BooksAPI';
-import Shelf from './Shelf';
+import IndexView from './views/IndexView';
+import SearchView from './views/SearchView';
 
 function App() {
     const [books, setBooks] = useState([]);
@@ -26,32 +28,17 @@ function App() {
     }, []);
 
     return (
-        <div className="app">
-            <div className="list-books">
-                <div className="list-books-title">
-                    <h1>MyReads</h1>
-                </div>
-                <div className="list-books-content">
-                    <div>
-                        <Shelf
-                            type="currentlyReading"
-                            books={books}
-                            onShelfChange={onShelfChange}
-                        />
-                        <Shelf
-                            type="wantToRead"
-                            books={books}
-                            onShelfChange={onShelfChange}
-                        />
-                        <Shelf
-                            type="read"
-                            books={books}
-                            onShelfChange={onShelfChange}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Routes>
+            <Route
+                exact
+                path="/"
+                element={
+                    <IndexView books={books} onShelfChange={onShelfChange} />
+                }
+            />
+
+            <Route exact path="/search" element={<SearchView />} />
+        </Routes>
     );
 }
 

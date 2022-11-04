@@ -22,28 +22,18 @@ function Book({ bookData, onShelfChange }) {
                     }}
                 ></div>
                 <div className="book-shelf-changer">
-                    <select onChange={event => handleShelfChange(event)}>
+                    <select
+                        onChange={event => handleShelfChange(event)}
+                        value={bookData.shelf}
+                    >
                         <option value="none" disabled>
                             Move to...
                         </option>
-                        <option
-                            value="currentlyReading"
-                            selected={bookData.shelf === 'currentlyReading'}
-                        >
+                        <option value="currentlyReading">
                             Currently Reading
                         </option>
-                        <option
-                            value="wantToRead"
-                            selected={bookData.shelf === 'wantToRead'}
-                        >
-                            Want to Read
-                        </option>
-                        <option
-                            value="read"
-                            selected={bookData.shelf === 'read'}
-                        >
-                            Read
-                        </option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
                         <option value="none">None</option>
                     </select>
                 </div>

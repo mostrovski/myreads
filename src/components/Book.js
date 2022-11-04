@@ -6,7 +6,7 @@ function Book({ bookData, onShelfChange }) {
 
     function handleShelfChange(event) {
         setMoving(true);
-        onShelfChange(bookData.id, event.target.value);
+        onShelfChange(bookData, event.target.value);
     }
 
     return (
@@ -26,7 +26,7 @@ function Book({ bookData, onShelfChange }) {
                         onChange={event => handleShelfChange(event)}
                         value={bookData.shelf}
                     >
-                        <option value="none" disabled>
+                        <option value="" disabled>
                             Move to...
                         </option>
                         <option value="currentlyReading">
@@ -39,7 +39,7 @@ function Book({ bookData, onShelfChange }) {
                 </div>
             </div>
             <div className="book-title">{bookData.title}</div>
-            <div className="book-authors">{bookData.authors.join(', ')}</div>
+            <div className="book-authors">{bookData.authors?.join(', ')}</div>
         </div>
     );
 }

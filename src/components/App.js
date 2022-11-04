@@ -1,26 +1,22 @@
 import '../assets/App.css';
-import { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import * as API from '../services/BooksAPI';
 import IndexView from './views/IndexView';
 import SearchView from './views/SearchView';
+import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function App() {
     const [books, setBooks] = useState([]);
 
-    function onShelfChange(bookId, shelf) {
-        const bookToUpdate = books.find(book => book.id === bookId);
-
-        if (bookToUpdate) {
-            API.update({ id: bookToUpdate.id }, shelf).then(() => {
-                bookToUpdate.shelf = shelf;
-                setBooks(
-                    books
-                        .filter(book => book.id !== bookToUpdate.id)
-                        .concat(bookToUpdate)
-                );
-            });
-        }
+    function onShelfChange(bookToUpdate, shelf) {
+        API.update({ id: bookToUpdate.id }, shelf).then(() => {
+            bookToUpdate.shelf = shelf;
+            setBooks(
+                books
+                    .filter(book => book.id !== bookToUpdate.id)
+                    .concat(bookToUpdate)
+            );
+        });
     }
 
     useEffect(() => {
@@ -37,7 +33,16 @@ function App() {
                 }
             />
 
-            <Route exact path="/search" element={<SearchView />} />
+            <Route
+                exact
+                path="/search"
+                element={
+                    <SearchView
+                        selectedBooks={books}
+                        onShelfChange={onShelfChange}
+                    />
+                }
+            />
         </Routes>
     );
 }

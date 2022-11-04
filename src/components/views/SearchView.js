@@ -1,6 +1,33 @@
+import * as API from '../../services/BooksAPI';
+import BookList from '../BookList';
+import debounce from 'lodash.debounce';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-function SearchView() {
+function SearchView({ selectedBooks, onShelfChange }) {
+    const maxResults = 20;
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleSearchInput = debounce(query => {
+        if (query.length < 3) {
+            return setSearchResults([]);
+        }
+
+        API.search(query, maxResults).then(results => {
+            if (Array.isArray(results)) {
+                setSearchResults(
+                    results.map(result => {
+                        result.shelf =
+                            selectedBooks.find(book => book.id === result.id)
+                                ?.shelf ?? '';
+                        return result;
+                    })
+                );
+            }
+        });
+    }, 500);
+
     return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -10,14 +37,20 @@ function SearchView() {
                     <input
                         type="text"
                         placeholder="Search by title, author, or ISBN"
+                        onInput={event => handleSearchInput(event.target.value)}
                     />
                 </div>
             </div>
             <div className="search-books-results">
-                <ol className="books-grid"></ol>
+                <BookList books={searchResults} onShelfChange={onShelfChange} />
             </div>
         </div>
     );
 }
+
+SearchView.propTypes = {
+    selectedBooks: PropTypes.array.isRequired,
+    onShelfChange: PropTypes.func.isRequired,
+};
 
 export default SearchView;

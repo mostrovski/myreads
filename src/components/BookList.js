@@ -1,8 +1,9 @@
 import Book from './Book';
+import BookPlaceholder from './BookPlaceholder';
 import PropTypes from 'prop-types';
 
 function BookList({ books, onShelfChange }) {
-    return (
+    return books.length ? (
         <ol className="books-grid">
             {books.map(book => (
                 <li key={book.id}>
@@ -10,6 +11,8 @@ function BookList({ books, onShelfChange }) {
                 </li>
             ))}
         </ol>
+    ) : (
+        <BookPlaceholder />
     );
 }
 

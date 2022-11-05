@@ -38,7 +38,7 @@ the `Book` components on the search page.
 
 Building the search page turned out to be a little bit tricky, mainly because of
 the API response from the search endpoint:
-- it not always returned an array of books;
+- it did not always return an array of books;
 - the book object was slightly different from the one on the main page.
 
 Noticing that books in search results were at least missing the `shelf` attribute,

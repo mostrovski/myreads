@@ -3,11 +3,17 @@ import BookList from '../BookList';
 import debounce from 'lodash.debounce';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function SearchView({ selectedBooks, onShelfChange }) {
     const maxResults = 20;
+    const searchInputEl = useRef(null);
+
     const [searchResults, setSearchResults] = useState([]);
+
+    useEffect(() => {
+        searchInputEl.current.focus();
+    }, []);
 
     const handleSearchInput = debounce(query => {
         if (query.length < 3) {
@@ -37,6 +43,7 @@ function SearchView({ selectedBooks, onShelfChange }) {
                     <input
                         type="text"
                         placeholder="Search by title, author, or ISBN"
+                        ref={searchInputEl}
                         onInput={event => handleSearchInput(event.target.value)}
                     />
                 </div>

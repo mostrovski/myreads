@@ -34,7 +34,9 @@ body {
 }
 
 .bookshelf {
+  box-shadow: 10px 10px 10px #24292f;
   padding: 0 10px 20px;
+  margin-top: 2rem;
 }
 
 @media (min-width: 600px) {

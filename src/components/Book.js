@@ -4,9 +4,9 @@ import { useState } from 'react';
 function Book({ bookData, onShelfChange }) {
     const [moving, setMoving] = useState(false);
 
-    const handleShelfChange = event => {
+    const handleShelfChange = newShelf => {
         setMoving(true);
-        onShelfChange(bookData, event.target.value);
+        onShelfChange(bookData, newShelf);
     };
 
     const handleDragStart = event => {
@@ -41,7 +41,9 @@ function Book({ bookData, onShelfChange }) {
                 ></div>
                 <div className="book-shelf-changer">
                     <select
-                        onChange={event => handleShelfChange(event)}
+                        onChange={event =>
+                            handleShelfChange(event.target.value)
+                        }
                         value={bookData.shelf}
                     >
                         <option value="" disabled>

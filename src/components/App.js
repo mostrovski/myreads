@@ -8,7 +8,11 @@ import { useState, useEffect } from 'react';
 function App() {
     const [books, setBooks] = useState([]);
 
-    function onShelfChange(bookToUpdate, shelf) {
+    const onShelfChange = (bookToUpdate, shelf) => {
+        if (bookToUpdate.shelf === shelf) {
+            return;
+        }
+
         API.update({ id: bookToUpdate.id }, shelf).then(() => {
             bookToUpdate.shelf = shelf;
             setBooks(
@@ -17,7 +21,7 @@ function App() {
                     .concat(bookToUpdate)
             );
         });
-    }
+    };
 
     useEffect(() => {
         API.getAll().then(books => setBooks(books));

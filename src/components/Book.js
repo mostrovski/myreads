@@ -4,13 +4,31 @@ import { useState } from 'react';
 function Book({ bookData, onShelfChange }) {
     const [moving, setMoving] = useState(false);
 
-    function handleShelfChange(event) {
+    const handleShelfChange = event => {
         setMoving(true);
         onShelfChange(bookData, event.target.value);
-    }
+    };
+
+    const handleDragStart = event => {
+        event.dataTransfer.setData('book_id', bookData.id);
+        event.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleDragEnd = () => {
+        setMoving(true);
+
+        setTimeout(() => {
+            setMoving(false);
+        }, 500);
+    };
 
     return (
-        <div className="book">
+        <div
+            className="book"
+            draggable="true"
+            onDragStart={event => handleDragStart(event)}
+            onDragEnd={handleDragEnd}
+        >
             <div className="book-top">
                 <div
                     className="book-cover"

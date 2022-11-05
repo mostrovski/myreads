@@ -2,7 +2,7 @@ import BookList from './BookList';
 import PropTypes from 'prop-types';
 
 function Shelf({ type, books, onShelfChange }) {
-    function titleMap() {
+    const titleMap = () => {
         const map = new Map();
 
         map.set('currentlyReading', 'Currently Reading');
@@ -10,10 +10,27 @@ function Shelf({ type, books, onShelfChange }) {
         map.set('read', 'Read');
 
         return map;
-    }
+    };
+
+    const handleDragOver = event => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+    };
+
+    const handleDrop = event => {
+        event.preventDefault();
+        const book = books.find(
+            book => book.id === event.dataTransfer.getData('book_id')
+        );
+        onShelfChange(book, type);
+    };
 
     return (
-        <div className="bookshelf">
+        <div
+            className="bookshelf"
+            onDragOver={event => handleDragOver(event)}
+            onDrop={event => handleDrop(event)}
+        >
             <h2 className="bookshelf-title">{titleMap().get(type)}</h2>
             <div className="bookshelf-books">
                 <BookList

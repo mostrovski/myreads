@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 function Book({ bookData, onShelfChange }) {
-    const [moving, setMoving] = useState(false);
-
     const handleShelfChange = newShelf => {
-        setMoving(true);
         onShelfChange(bookData, newShelf);
     };
 
@@ -14,20 +10,11 @@ function Book({ bookData, onShelfChange }) {
         event.dataTransfer.effectAllowed = 'move';
     };
 
-    const handleDragEnd = () => {
-        setMoving(true);
-
-        setTimeout(() => {
-            setMoving(false);
-        }, 500);
-    };
-
     return (
         <div
             className="book"
             draggable="true"
             onDragStart={event => handleDragStart(event)}
-            onDragEnd={handleDragEnd}
         >
             <div className="book-top">
                 <div
@@ -36,7 +23,6 @@ function Book({ bookData, onShelfChange }) {
                         width: 128,
                         height: 193,
                         backgroundImage: `url(${bookData.imageLinks?.thumbnail})`,
-                        opacity: moving ? '30%' : '100%',
                     }}
                 ></div>
                 <div className="book-shelf-changer">

@@ -8,18 +8,27 @@ import { useState, useEffect } from 'react';
 function App() {
     const [books, setBooks] = useState([]);
 
+    const moveBook = (movingBook, shelf) => {
+        setBooks(
+            books
+                .filter(book => book.id !== movingBook.id)
+                .concat({ ...movingBook, shelf })
+        );
+    };
+
     const onShelfChange = (bookToUpdate, shelf) => {
         if (bookToUpdate.shelf === shelf) {
             return;
         }
 
-        API.update({ id: bookToUpdate.id }, shelf).then(() => {
-            bookToUpdate.shelf = shelf;
-            setBooks(
-                books
-                    .filter(book => book.id !== bookToUpdate.id)
-                    .concat(bookToUpdate)
-            );
+        const oldShelf = bookToUpdate.shelf;
+
+        moveBook(bookToUpdate, shelf);
+
+        API.update({ id: bookToUpdate.id }, shelf).catch(error => {
+            console.log(error);
+            moveBook(bookToUpdate, oldShelf);
+            alert('Something went wrong. Try again!');
         });
     };
 

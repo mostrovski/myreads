@@ -16,18 +16,18 @@ function App() {
         );
     };
 
-    const onShelfChange = (bookToUpdate, shelf) => {
-        if (bookToUpdate.shelf === shelf) {
+    const onShelfChange = (book, newShelf) => {
+        const oldShelf = book.shelf;
+
+        if (oldShelf === newShelf) {
             return;
         }
 
-        const oldShelf = bookToUpdate.shelf;
+        moveBook(book, newShelf);
 
-        moveBook(bookToUpdate, shelf);
-
-        API.update({ id: bookToUpdate.id }, shelf).catch(error => {
+        API.update({ id: book.id }, newShelf).catch(error => {
             console.log(error);
-            moveBook(bookToUpdate, oldShelf);
+            moveBook(book, oldShelf);
             alert('Something went wrong. Try again!');
         });
     };

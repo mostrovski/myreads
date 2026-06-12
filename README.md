@@ -62,25 +62,20 @@ The rest was about some UI/UX tweaks:
 2. Clone, or download and extract the repository.
 3. Change to the root of the project.
 4. Run `npm install` to install the dependencies.
-5. Run `npm start` to initiate the development build.
+5. Run `npm start` to start the development server.
 6. In your terminal, you should see something like this:
 
    ```bash
-   Compiled successfully!
+   VITE v8.0.16  ready in 109 ms
 
-   You can now view myreads in the browser.
+   ➜  Local:   http://localhost:3000/
+   ➜  Network: use --host to expose
+   ➜  press h + enter to show help
 
-     Local:            http://localhost:3000
-     On Your Network:  http://<your-ip>:3000
-
-   Note that the development build is not optimized.
-   To create a production build, use npm run build.
-
-   webpack compiled successfully
    ```
-7. If it didn't happen automatically during the build, open provided link in your browser.
+7. If it didn't happen automatically, open provided link in your browser.
 
 ### Kudos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Before moving to [Vite](https://vite.dev/), this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 The starter code and project requirements were provided as a part of the [React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019) at Udacity.
